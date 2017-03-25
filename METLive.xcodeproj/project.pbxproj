@@ -1,0 +1,328 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		74ACD38E1E86A0B80066F574 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 74ACD38D1E86A0B80066F574 /* main.m */; };
+		74ACD3911E86A0B90066F574 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 74ACD3901E86A0B90066F574 /* AppDelegate.m */; };
+		74ACD3941E86A0B90066F574 /* METLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74ACD3931E86A0B90066F574 /* METLiveViewController.m */; };
+		74ACD3971E86A0B90066F574 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74ACD3951E86A0B90066F574 /* Main.storyboard */; };
+		74ACD3991E86A0B90066F574 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74ACD3981E86A0B90066F574 /* Assets.xcassets */; };
+		74ACD39C1E86A0B90066F574 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74ACD39A1E86A0B90066F574 /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		74ACD3891E86A0B80066F574 /* METLive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = METLive.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		74ACD38D1E86A0B80066F574 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		74ACD38F1E86A0B80066F574 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		74ACD3901E86A0B90066F574 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		74ACD3921E86A0B90066F574 /* METLiveViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = METLiveViewController.h; sourceTree = "<group>"; };
+		74ACD3931E86A0B90066F574 /* METLiveViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = METLiveViewController.m; sourceTree = "<group>"; };
+		74ACD3961E86A0B90066F574 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		74ACD3981E86A0B90066F574 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		74ACD39B1E86A0B90066F574 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		74ACD39D1E86A0B90066F574 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		74ACD3861E86A0B80066F574 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		74ACD3801E86A0B80066F574 = {
+			isa = PBXGroup;
+			children = (
+				74ACD38B1E86A0B80066F574 /* METLive */,
+				74ACD38A1E86A0B80066F574 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		74ACD38A1E86A0B80066F574 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				74ACD3891E86A0B80066F574 /* METLive.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		74ACD38B1E86A0B80066F574 /* METLive */ = {
+			isa = PBXGroup;
+			children = (
+				74ACD3A31E86A0E70066F574 /* METLive */,
+				74ACD38F1E86A0B80066F574 /* AppDelegate.h */,
+				74ACD3901E86A0B90066F574 /* AppDelegate.m */,
+				74ACD3921E86A0B90066F574 /* METLiveViewController.h */,
+				74ACD3931E86A0B90066F574 /* METLiveViewController.m */,
+				74ACD3951E86A0B90066F574 /* Main.storyboard */,
+				74ACD38C1E86A0B80066F574 /* Supporting Files */,
+			);
+			path = METLive;
+			sourceTree = "<group>";
+		};
+		74ACD38C1E86A0B80066F574 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				74ACD3981E86A0B90066F574 /* Assets.xcassets */,
+				74ACD39A1E86A0B90066F574 /* LaunchScreen.storyboard */,
+				74ACD39D1E86A0B90066F574 /* Info.plist */,
+				74ACD38D1E86A0B80066F574 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		74ACD3A31E86A0E70066F574 /* METLive */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = METLive;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		74ACD3881E86A0B80066F574 /* METLive */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 74ACD3A01E86A0B90066F574 /* Build configuration list for PBXNativeTarget "METLive" */;
+			buildPhases = (
+				74ACD3851E86A0B80066F574 /* Sources */,
+				74ACD3861E86A0B80066F574 /* Frameworks */,
+				74ACD3871E86A0B80066F574 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = METLive;
+			productName = METLive;
+			productReference = 74ACD3891E86A0B80066F574 /* METLive.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		74ACD3811E86A0B80066F574 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = MET;
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = xiaowei;
+				TargetAttributes = {
+					74ACD3881E86A0B80066F574 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = CJ59HH5Y6Z;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 74ACD3841E86A0B80066F574 /* Build configuration list for PBXProject "METLive" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 74ACD3801E86A0B80066F574;
+			productRefGroup = 74ACD38A1E86A0B80066F574 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				74ACD3881E86A0B80066F574 /* METLive */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		74ACD3871E86A0B80066F574 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				74ACD39C1E86A0B90066F574 /* LaunchScreen.storyboard in Resources */,
+				74ACD3991E86A0B90066F574 /* Assets.xcassets in Resources */,
+				74ACD3971E86A0B90066F574 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		74ACD3851E86A0B80066F574 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				74ACD3941E86A0B90066F574 /* METLiveViewController.m in Sources */,
+				74ACD3911E86A0B90066F574 /* AppDelegate.m in Sources */,
+				74ACD38E1E86A0B80066F574 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		74ACD3951E86A0B90066F574 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				74ACD3961E86A0B90066F574 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		74ACD39A1E86A0B90066F574 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				74ACD39B1E86A0B90066F574 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		74ACD39E1E86A0B90066F574 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		74ACD39F1E86A0B90066F574 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		74ACD3A11E86A0B90066F574 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = CJ59HH5Y6Z;
+				INFOPLIST_FILE = METLive/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.xiaowei.METLive;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		74ACD3A21E86A0B90066F574 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = CJ59HH5Y6Z;
+				INFOPLIST_FILE = METLive/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.xiaowei.METLive;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		74ACD3841E86A0B80066F574 /* Build configuration list for PBXProject "METLive" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				74ACD39E1E86A0B90066F574 /* Debug */,
+				74ACD39F1E86A0B90066F574 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		74ACD3A01E86A0B90066F574 /* Build configuration list for PBXNativeTarget "METLive" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				74ACD3A11E86A0B90066F574 /* Debug */,
+				74ACD3A21E86A0B90066F574 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 74ACD3811E86A0B80066F574 /* Project object */;
+}
