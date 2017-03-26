@@ -9,11 +9,10 @@
 #import "METLiveViewController.h"
 #import <AVFoundation/AVFoundation.h>
 
-@interface METLiveViewController () <AVCaptureVideoDataOutputSampleBufferDelegate>
+@interface METLiveViewController () <AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureAudioDataOutputSampleBufferDelegate>
 
 @property (nonatomic, strong) AVCaptureSession *captureSession;
 @property (nonatomic, strong) AVCaptureConnection *videoCaptureConnection;
-@property (nonatomic, strong) AVCaptureConnection *audioCaptureConnection;
 
 @end
 
@@ -22,6 +21,13 @@
 - (void)viewDidLoad
 {
     [self setupCaptureSession];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [_captureSession stopRunning];
 }
 
 - (void)setupCaptureSession
@@ -40,6 +46,7 @@
     previewLayer.frame = self.view.layer.bounds;
     [self.view.layer addSublayer:previewLayer];
     
+    //5.开始采集
     [_captureSession startRunning];
 }
 
@@ -90,7 +97,30 @@
 
 - (void)configureAudioCapture
 {
+    //1.创建音频输入设备
+    AVCaptureDevice *audioDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio];
     
+    //2.创建音频输入对象
+    AVCaptureDeviceInput *audioDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:audioDevice error:NULL];
+    
+    //3.将输入对象加入到会话中
+    if ([_captureSession canAddInput:audioDeviceInput]) {
+        [_captureSession addInput:audioDeviceInput];
+    }
+    
+    //4.创建音频数据输出对象
+    AVCaptureAudioDataOutput *audioDataOutput = [[AVCaptureAudioDataOutput alloc] init];
+    
+    //5.创建音频数据输出队列
+    dispatch_queue_t audioSerialQueue = dispatch_queue_create("com.METLive.audioCapture.audioSerialQueue", NULL);
+    
+    //6.配置音频数据输出对象
+    [audioDataOutput setSampleBufferDelegate:self queue:audioSerialQueue];
+    
+    //7.将输出对象添加到会话中
+    if ([_captureSession canAddOutput:audioDataOutput]) {
+        [_captureSession addOutput:audioDataOutput];
+    }
 }
 
 #pragma mark - AVCaptureVideoDataOutputSampleBufferDelegate
@@ -99,6 +129,8 @@
 {
     if (connection == _videoCaptureConnection) {
         NSLog(@"采集到视频数据！");
+    } else {
+        NSLog(@"采集到音频数据！");
     }
 }
 
