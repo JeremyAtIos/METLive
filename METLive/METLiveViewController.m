@@ -9,16 +9,24 @@
 #import "METLiveViewController.h"
 #import <AVFoundation/AVFoundation.h>
 
+static const CGFloat kFocusViewScale = 1.5;
+static const CGFloat kFocusViewAlphaComponent = 0.5;
+static const CGFloat kFocusViewDimension = 64;
+
 @interface METLiveViewController () <AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureAudioDataOutputSampleBufferDelegate>
 
 @property (nonatomic, strong) AVCaptureSession *captureSession;
 @property (nonatomic, strong) AVCaptureConnection *videoCaptureConnection;
 @property (nonatomic, strong) AVCaptureDevice *videoDevice;
 @property (nonatomic, strong) AVCaptureDeviceInput *videoDeviceInput;
+@property (nonatomic, strong) AVCaptureVideoPreviewLayer *previewLayer;
+@property (nonatomic, strong) UIView *focusView;
 
 @end
 
 @implementation METLiveViewController
+
+#pragma mark - Lifecircle
 
 - (void)viewDidLoad
 {
@@ -30,49 +38,6 @@
     [super viewWillDisappear:animated];
     
     [_captureSession stopRunning];
-}
-
-//开始和结束录制
-- (IBAction)startButtonClicked:(id)sender
-{
-    UIButton *button = (UIButton *)sender;
-    if (_captureSession.isRunning) {
-        [_captureSession stopRunning];
-        [button setTitle:@"开始" forState:UIControlStateNormal];
-    } else {
-        [_captureSession startRunning];
-        [button setTitle:@"结束" forState:UIControlStateNormal];
-    }
-}
-
-//切换相机方向
-- (IBAction)switchCameraPosition:(id)sender
-{
-    if (!_captureSession.isRunning) return;
-    
-    //1.获取相机方向
-    AVCaptureDevicePosition currentPosition = _videoDevice.position;
-    
-    //2.根据当前方向获取要切换的方向
-    AVCaptureDevicePosition switchPosition = currentPosition == AVCaptureDevicePositionFront ? AVCaptureDevicePositionBack : AVCaptureDevicePositionFront;
-    
-    //3.获取切换后的设备
-    AVCaptureDevice *newDevice = [self videoDeviceForPosition:switchPosition];
-    
-    //4.获取新的设备输入
-    AVCaptureDeviceInput *newDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:newDevice error:NULL];
-    
-    //5.移除之前的设备输入
-    [_captureSession removeInput:_videoDeviceInput];
-    
-    //6.添加新的设备输入
-    if ([_captureSession canAddInput:newDeviceInput]) {
-        [_captureSession addInput:newDeviceInput];
-    }
-    
-    //7.替换设备和输入对象
-    _videoDevice = newDevice;
-    _videoDeviceInput = newDeviceInput;
 }
 
 - (void)setupCaptureSession
@@ -87,9 +52,9 @@
     [self configureAudioCapture];
     
     //4.添加视频录制的预览图层
-    AVCaptureVideoPreviewLayer *previewLayer = [AVCaptureVideoPreviewLayer layerWithSession:_captureSession];
-    previewLayer.frame = self.view.layer.bounds;
-    [self.view.layer insertSublayer:previewLayer atIndex:0];
+    _previewLayer = [AVCaptureVideoPreviewLayer layerWithSession:_captureSession];
+    _previewLayer.frame = self.view.layer.bounds;
+    [self.view.layer insertSublayer:_previewLayer atIndex:0];
 }
 
 - (void)configureVideoCapture
@@ -165,6 +130,111 @@
     }
 }
 
+#pragma mark - Event
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    if (!_captureSession.isRunning) return;
+    
+    //1.获取手指点击位置
+    UITouch *touch = [touches anyObject];
+    CGPoint point = [touch locationInView:self.view];
+    
+    //2.设置聚焦视图位置
+    [self setFoucusPoint:point animated:YES];
+    
+    //3.坐标转换
+    CGPoint capturePoint = [_previewLayer captureDevicePointOfInterestForPoint:point];
+    
+    //4.设置摄像头聚焦
+    [self setFocusMode:AVCaptureFocusModeAutoFocus
+          exposureMode:AVCaptureExposureModeAutoExpose
+               atPoint:capturePoint];
+}
+
+- (void)setFocusMode:(AVCaptureFocusMode)focusMode
+        exposureMode:(AVCaptureExposureMode)exposureMode
+             atPoint:(CGPoint)point
+{
+    //1.锁住设备
+    [_videoDevice lockForConfiguration:nil];
+    
+    //2.设置聚焦
+    if ([_videoDevice isFocusModeSupported:focusMode]) {
+        [_videoDevice setFocusMode:focusMode];
+    }
+    if ([_videoDevice isFocusPointOfInterestSupported]) {
+        [_videoDevice setFocusPointOfInterest:point];
+    }
+    
+    //3.设置曝光
+    if ([_videoDevice isExposureModeSupported:exposureMode]) {
+        [_videoDevice setExposureMode:exposureMode];
+    }
+    if ([_videoDevice isExposurePointOfInterestSupported]) {
+        [_videoDevice setExposurePointOfInterest:point];
+    }
+    
+    //4.解锁设备
+    [_videoDevice unlockForConfiguration];
+}
+
+- (void)setFoucusPoint:(CGPoint)point animated:(BOOL)animated
+{
+    [self.view addSubview:self.focusView];
+    _focusView.alpha = 1.0;
+    _focusView.center = point;
+    _focusView.transform = CGAffineTransformMakeScale(kFocusViewScale, kFocusViewScale);
+    [UIView animateWithDuration:0.5 animations:^{
+        _focusView.transform = CGAffineTransformIdentity;
+    } completion:^(BOOL finished) {
+        _focusView.alpha = 0.0;
+    }];
+}
+
+//开始和结束录制
+- (IBAction)startButtonClicked:(id)sender
+{
+    UIButton *button = (UIButton *)sender;
+    if (_captureSession.isRunning) {
+        [_captureSession stopRunning];
+        [button setTitle:@"开始" forState:UIControlStateNormal];
+    } else {
+        [_captureSession startRunning];
+        [button setTitle:@"结束" forState:UIControlStateNormal];
+    }
+}
+
+//切换相机方向
+- (IBAction)switchCameraPosition:(id)sender
+{
+    if (!_captureSession.isRunning) return;
+    
+    //1.获取相机方向
+    AVCaptureDevicePosition currentPosition = _videoDevice.position;
+    
+    //2.根据当前方向获取要切换的方向
+    AVCaptureDevicePosition switchPosition = currentPosition == AVCaptureDevicePositionFront ? AVCaptureDevicePositionBack : AVCaptureDevicePositionFront;
+    
+    //3.获取切换后的设备
+    AVCaptureDevice *newDevice = [self videoDeviceForPosition:switchPosition];
+    
+    //4.获取新的设备输入
+    AVCaptureDeviceInput *newDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:newDevice error:NULL];
+    
+    //5.移除之前的设备输入
+    [_captureSession removeInput:_videoDeviceInput];
+    
+    //6.添加新的设备输入
+    if ([_captureSession canAddInput:newDeviceInput]) {
+        [_captureSession addInput:newDeviceInput];
+    }
+    
+    //7.替换设备和输入对象
+    _videoDevice = newDevice;
+    _videoDeviceInput = newDeviceInput;
+}
+
 #pragma mark - AVCaptureVideoDataOutputSampleBufferDelegate
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
@@ -174,6 +244,18 @@
     } else {
         NSLog(@"采集到音频数据！");
     }
+}
+
+#pragma mark - Properties
+
+- (UIView *)focusView
+{
+    if (!_focusView) {
+        _focusView = [[UIView alloc] init];
+        _focusView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:kFocusViewAlphaComponent];
+        _focusView.bounds = CGRectMake(0, 0, kFocusViewDimension, kFocusViewDimension);
+    }
+    return _focusView;
 }
 
 @end
