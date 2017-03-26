@@ -13,6 +13,8 @@
 
 @property (nonatomic, strong) AVCaptureSession *captureSession;
 @property (nonatomic, strong) AVCaptureConnection *videoCaptureConnection;
+@property (nonatomic, strong) AVCaptureDevice *videoDevice;
+@property (nonatomic, strong) AVCaptureDeviceInput *videoDeviceInput;
 
 @end
 
@@ -30,6 +32,49 @@
     [_captureSession stopRunning];
 }
 
+//开始和结束录制
+- (IBAction)startButtonClicked:(id)sender
+{
+    UIButton *button = (UIButton *)sender;
+    if (_captureSession.isRunning) {
+        [_captureSession stopRunning];
+        [button setTitle:@"开始" forState:UIControlStateNormal];
+    } else {
+        [_captureSession startRunning];
+        [button setTitle:@"结束" forState:UIControlStateNormal];
+    }
+}
+
+//切换相机方向
+- (IBAction)switchCameraPosition:(id)sender
+{
+    if (!_captureSession.isRunning) return;
+    
+    //1.获取相机方向
+    AVCaptureDevicePosition currentPosition = _videoDevice.position;
+    
+    //2.根据当前方向获取要切换的方向
+    AVCaptureDevicePosition switchPosition = currentPosition == AVCaptureDevicePositionFront ? AVCaptureDevicePositionBack : AVCaptureDevicePositionFront;
+    
+    //3.获取切换后的设备
+    AVCaptureDevice *newDevice = [self videoDeviceForPosition:switchPosition];
+    
+    //4.获取新的设备输入
+    AVCaptureDeviceInput *newDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:newDevice error:NULL];
+    
+    //5.移除之前的设备输入
+    [_captureSession removeInput:_videoDeviceInput];
+    
+    //6.添加新的设备输入
+    if ([_captureSession canAddInput:newDeviceInput]) {
+        [_captureSession addInput:newDeviceInput];
+    }
+    
+    //7.替换设备和输入对象
+    _videoDevice = newDevice;
+    _videoDeviceInput = newDeviceInput;
+}
+
 - (void)setupCaptureSession
 {
     //1.创建会话
@@ -44,23 +89,20 @@
     //4.添加视频录制的预览图层
     AVCaptureVideoPreviewLayer *previewLayer = [AVCaptureVideoPreviewLayer layerWithSession:_captureSession];
     previewLayer.frame = self.view.layer.bounds;
-    [self.view.layer addSublayer:previewLayer];
-    
-    //5.开始采集
-    [_captureSession startRunning];
+    [self.view.layer insertSublayer:previewLayer atIndex:0];
 }
 
 - (void)configureVideoCapture
 {
     //1.获取摄像头设备，默认为后置摄像头
-    AVCaptureDevice *videoDevice = [self videoDeviceForPosition:AVCaptureDevicePositionBack];
+    _videoDevice = [self videoDeviceForPosition:AVCaptureDevicePositionBack];
     
     //2.创建视频输入对象
-    AVCaptureDeviceInput *videoDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:videoDevice error:NULL];
+    _videoDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:_videoDevice error:NULL];
     
     //3.向会话中添加视频输入对象
-    if ([_captureSession canAddInput:videoDeviceInput]) {
-        [_captureSession addInput:videoDeviceInput];
+    if ([_captureSession canAddInput:_videoDeviceInput]) {
+        [_captureSession addInput:_videoDeviceInput];
     }
     
     //4.创建视频数据输出对象
